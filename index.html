@@ -3,25 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cube Packs</title>
+    <title>Cube Packs & Collection</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="game-container">
-        <h1>Cubing Blook Opener</h1>
+        <h1>Cubing Blook Game</h1>
         <div class="stats">Tokens: <span id="token-count">100</span></div>
         
-        <div class="pack-card">
-            <h3>WCA Starter Pack</h3>
-            <p>Cost: 20 Tokens</p>
-            <button id="open-button">Open Pack</button>
+        <!-- Navigation Tabs -->
+        <div class="navigation">
+            <button id="tab-shop" class="nav-btn active">Open Packs</button>
+            <button id="tab-collection" class="nav-btn">My Blooks</button>
         </div>
 
-        <div class="result-display">
-            <h2>You Got:</h2>
-            <div id="blook-name">Click open to start!</div>
-            <div id="blook-rarity"></div>
+        <!-- SHOP PAGE CONTENT -->
+        <div id="page-shop" class="page">
+            <div class="pack-card">
+                <h3>WCA Starter Pack</h3>
+                <p>Cost: 20 Tokens</p>
+                <button id="open-button">Open Pack</button>
+            </div>
+            <div class="result-display">
+                <h2>You Got:</h2>
+                <div id="blook-name">Click open to start!</div>
+                <div id="blook-rarity"></div>
+            </div>
         </div>
+
+        <!-- COLLECTION PAGE CONTENT -->
+        <div id="page-collection" class="page hidden">
+            <h2>Your Blook Collection</h2>
+            <div id="collection-grid" class="grid">
+                <!-- Blooks will appear here dynamically via code -->
+            </div>
+        </div>
+
+        <!-- Account Reset Button -->
+        <button id="reset-account" class="danger-btn">Reset Account Data</button>
     </div>
     <script src="script.js"></script>
 </body>
