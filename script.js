@@ -1,4 +1,3 @@
-// SYSTEM GAME DATABASE ENGINE
 const catalog = {
   wca: [
     { name: "White 3x3", rarity: "Common", weight: 70, art: "3x3", color: "#3b82f6" },
@@ -12,16 +11,17 @@ const catalog = {
   ]
 };
 
-// INITIALIZE USER STATE DATA MAPPING
-let account = {
-  tokens: 500,
-  opened: 0,
-  owned: [],
-  avatar: "🎲"
-};
+let account = { tokens: 500, opened: 0, owned: [], avatar: "🎲" };
 
-// SYNCHRONIZE DATA INTERFACES
-syncMetrics();
+// --- WORKSPACE NAV BAR DETECTORS ---
+document.getElementById('btn-market').addEventListener('click', () => switchTab('market'));
+document.getElementById('btn-blocks').addEventListener('click', () => switchTab('blocks'));
+document.getElementById('btn-stats').addEventListener('click', () => switchTab('stats'));
+
+// --- SHOP PURCHASING DETECTORS ---
+document.getElementById('pack-wca').addEventListener('click', () => purchaseBox('wca'));
+document.getElementById('pack-mod').addEventListener('click', () => purchaseBox('mod'));
+document.getElementById('btn-close-modal').addEventListener('click', dismissRewardPopup);
 
 function syncMetrics() {
   document.getElementById("user-tokens").innerText = account.tokens;
@@ -31,36 +31,22 @@ function syncMetrics() {
 }
 
 function switchTab(tabId) {
-  // Reset navigation status bars
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
   
-  // Activate selected elements
-  if(tabId === 'market') {
-    document.getElementById('btn-market').classList.add('active');
-    document.getElementById('market-screen').style.display = 'block';
-  } else if(tabId === 'blocks') {
-    document.getElementById('btn-blocks').classList.add('active');
-    document.getElementById('blocks-screen').style.display = 'block';
-    renderGallery();
-  } else if(tabId === 'stats') {
-    document.getElementById('btn-stats').classList.add('active');
-    document.getElementById('stats-screen').style.display = 'block';
-  }
+  document.getElementById(`btn-${tabId === 'market' ? 'market' : tabId === 'blocks' ? 'blocks' : 'stats'}`).classList.add('active');
+  document.getElementById(`${tabId}-screen`).style.display = 'block';
+  
+  if(tabId === 'blocks') renderGallery();
 }
 
 function purchaseBox(boxType) {
   let cost = boxType === 'wca' ? 25 : 40;
-  
-  if(account.tokens < cost) {
-    alert("You don't have enough tokens to buy this booster pack!");
-    return;
-  }
+  if(account.tokens < cost) { alert("Not enough tokens!"); return; }
 
   account.tokens -= cost;
   account.opened += 1;
 
-  // SYSTEM RANDOMIZER ROLLING MECHANISM
   let items = catalog[boxType];
   let roll = Math.random() * 100;
   let prize = items[0];
@@ -68,20 +54,12 @@ function purchaseBox(boxType) {
 
   for (let i = 0; i < items.length; i++) {
     checkRange += items[i].weight;
-    if(roll <= checkRange) {
-      prize = items[i];
-      break;
-    }
+    if(roll <= checkRange) { prize = items[i]; break; }
   }
 
-  // UPDATE OWNERSHIP INVENTORY RECORD LIST
-  if (!account.owned.includes(prize.name)) {
-    account.owned.push(prize.name);
-  }
-
+  if (!account.owned.includes(prize.name)) { account.owned.push(prize.name); }
   syncMetrics();
 
-  // INITIATE BLOOKET MODAL VIEW SYSTEM
   document.getElementById("popup-art").innerText = prize.art;
   document.getElementById("popup-art").style.backgroundColor = prize.color;
   document.getElementById("popup-name").innerText = prize.name;
@@ -89,7 +67,6 @@ function purchaseBox(boxType) {
   let tag = document.getElementById("popup-rarity");
   tag.innerText = prize.rarity;
   tag.className = "rarity-tag " + prize.rarity;
-
   document.getElementById("reward-popup").style.display = "flex";
 }
 
@@ -99,31 +76,32 @@ function dismissRewardPopup() {
 
 function renderGallery() {
   const grid = document.getElementById("blook-render-grid");
-  grid.innerHTML = ""; // Clear active layout board
+  grid.innerHTML = "";
 
   Object.keys(catalog).forEach(boxKey => {
     catalog[boxKey].forEach(blook => {
       let isOwned = account.owned.includes(blook.name);
       
+      let itemDiv = document.createElement('div');
+      itemDiv.className = "gallery-item" + (isOwned ? "" : " locked");
+      
+      itemDiv.innerHTML = `
+        <div class="blook-render" style="background-color: ${isOwned ? blook.color : '#94a3b8'}; width:80px; height:100px; font-size:24px; border-radius:12px; margin:0 auto 10px auto;">${isOwned ? blook.art : '🔒'}</div>
+        <div>${isOwned ? blook.name : '???'}</div>
+      `;
+      
       if(isOwned) {
-        grid.innerHTML += `
-          <div class="gallery-item" onclick="changeAvatar('${blook.art}')" style="cursor:pointer;">
-            <div class="blook-render" style="background-color: ${blook.color}; width:80px; height:100px; font-size:24px; border-radius:12px; margin:0 auto 10px auto;">${blook.art}</div>
-            <div>${blook.name}</div>
-          </div>`;
-      } else {
-        grid.innerHTML += `
-          <div class="gallery-item locked">
-            <div class="blook-render" style="width:80px; height:100px; font-size:24px; border-radius:12px; margin:0 auto 10px auto;">🔒</div>
-            <div>???</div>
-          </div>`;
+        itemDiv.style.cursor = "pointer";
+        itemDiv.addEventListener('click', () => {
+          account.avatar = blook.art;
+          syncMetrics();
+          alert("Avatar updated!");
+        });
       }
+      grid.appendChild(itemDiv);
     });
   });
 }
 
-function changeAvatar(avatarArt) {
-  account.avatar = avatarArt;
-  syncMetrics();
-  alert("Your display avatar has been updated!");
-}
+// Run updates on start
+syncMetrics();
