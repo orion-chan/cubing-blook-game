@@ -1,64 +1,38 @@
-<!-- Top Navigation Panel -->
-<nav class="navbar">
-  <button onclick="showPage('market')">🛒 Pack Market</button>
-  <button onclick="showPage('collection')">🎒 My Blooks</button>
-  <button onclick="showPage('stats')">👤 Account Stats</button>
-  <div class="token-display">🪙 Tokens: <span id="token-count">200</span></div>
-</nav>
+<div class="sidebar">
+  <h2>Cubelet API</h2>
+  <button onclick="switchTab('market')">🛒 Market</button>
+  <button onclick="switchTab('blocks')">🎒 Blooks</button>
+  <button onclick="switchTab('stats')">👤 Stats</button>
+</div>
 
-<!-- PAGE 1: PACK MARKET -->
-<div id="market-page" class="page">
-  <h1>Cube Shop</h1>
-  <p>Select a mystery box to open using your earned tokens.</p>
-  
-  <div class="pack-grid">
-    <!-- Pack 1 -->
-    <div class="pack-card">
-      <h3>WCA Pack</h3>
-      <p>Standard speedcubes</p>
-      <p><strong>Cost: 20 🪙</strong></p>
-      <button class="pack-btn" onclick="buyPack('wca')">Open Box</button>
-    </div>
-    
-    <!-- Pack 2 -->
-    <div class="pack-card">
-      <h3>Shape Mod Pack</h3>
-      <p>Exotic twisty puzzles</p>
-      <p><strong>Cost: 35 🪙</strong></p>
-      <button class="pack-btn" onclick="buyPack('shape')">Open Box</button>
-    </div>
-
-    <!-- Pack 3 -->
-    <div class="pack-card">
-      <h3>Concept Pack</h3>
-      <p>Rare custom items</p>
-      <p><strong>Cost: 50 🪙</strong></p>
-      <button class="pack-btn" onclick="buyPack('concept')">Open Box</button>
-    </div>
+<div class="main-content">
+  <div class="top-bar">
+    <div class="user-avatar" id="global-avatar">🎲</div>
+    <div class="token-counter">🪙 <span id="user-tokens">500</span></div>
   </div>
 
-  <!-- Opening Workspace Area -->
-  <div id="pack-result" style="display: none;">
-    <h3 id="prize-rarity">PULL!</h3>
-    <h2 id="prize-name">Item Name</h2>
+  <div class="page-body">
+    <div id="market-screen" class="page active">
+      <h1>Booster Market</h1>
+      <button onclick="purchaseBox('wca')">🧱 WCA Box (25 🪙)</button>
+      <button onclick="purchaseBox('mod')">🔮 Mod Box (40 🪙)</button>
+    </div>
+
+    <div id="blocks-screen" class="page" style="display:none;">
+      <h1>My Blooks</h1>
+      <div id="blook-render-grid"></div>
+    </div>
+
+    <div id="stats-screen" class="page" style="display:none;">
+      <h1>Account Stats</h1>
+      <p>Boxes Opened: <span id="stat-opened">0</span></p>
+    </div>
   </div>
 </div>
 
-<!-- PAGE 2: BLOOKS COLLECTION -->
-<div id="collection-page" class="page" style="display: none;">
-  <h1>My Blooks Collection</h1>
-  <p>Locked items are greyed out until you pull them from boxes.</p>
-  <div class="blook-grid" id="collection-grid"></div>
-</div>
-
-<!-- PAGE 3: ACCOUNT STATS -->
-<div id="stats-page" class="page" style="display: none;">
-  <h1>Player Profile</h1>
-  <div class="stats-box">
-    <p><strong>User Status:</strong> Local Cuber Account</p>
-    <p><strong>Total Balance:</strong> <span id="stat-tokens">200</span> Tokens</p>
-    <p><strong>Total Boxes Opened:</strong> <span id="stat-opened">0</span></p>
-    <p><strong>Blooks Discovered:</strong> <span id="stat-unlocked">0/7</span></p>
-    <button onclick="resetAccount()" style="margin-top: 15px; padding: 5px 10px; background: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer;">Reset Save Data</button>
-  </div>
+<div id="reward-popup" style="display:none; position:fixed; top:30%; left:40%; background:white; padding:30px; border:5px solid black; text-align:center;">
+  <h2>Box Opened!</h2>
+  <h1 id="popup-art">❓</h1>
+  <h3 id="popup-name">Item</h3>
+  <button onclick="document.getElementById('reward-popup').style.display='none'">Awesome!</button>
 </div>
