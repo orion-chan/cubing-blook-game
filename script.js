@@ -8,17 +8,17 @@ function openPack() {
   // Each Blook now has text AND a web link to a cube picture
   if (roll < 70) {
     return {
-      text: "You got a Standard 3x3! (Common)",
+      text: "Rubik's 3x3 (Common)",
       img: "https://unsplash.com"
     };
   } else if (roll < 95) {
     return {
-      text: "You got a Pyraminx! (Rare)",
+      text: "Gan Pyraminx (Rare)",
       img: "https://unsplash.com"
     };
   } else {
     return {
-      text: "OMG! You pulled the Golden Cube! (Legendary)",
+      text: "Gan 16 Maglev Max (Legendary)",
       img: "https://unsplash.com"
     };
   }
