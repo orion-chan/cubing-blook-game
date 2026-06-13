@@ -1,44 +1,149 @@
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #4DB6AC;
-  padding-top: 50px;
+:root {
+  --primary-teal: #0d9488;
+  --light-teal: #ccfbf1;
+  --bg-teal: #f0fdfa;
+  --dark-teal: #115e59;
+  --card-bg: #ffffff;
 }
 
-button {
-  padding: 15px 30px;
-  font-size: 18px;
-  background-color: #2563eb;
-  color: white;
-  border: none;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background-color: var(--bg-teal);
+  color: #1e293b;
+  text-align: center;
+}
+
+/* Navbar Layout */
+.navbar {
+  background-color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  box-shadow: 0 4px 6px rgba(13, 148, 136, 0.1);
+  align-items: center;
+}
+
+.navbar button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 2px solid transparent;
+  background-color: var(--light-teal);
+  color: var(--dark-teal);
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
+  transition: all 0.2s ease;
 }
 
-button:hover {
-  background-color: #1d4ed8;
+.navbar button:hover {
+  background-color: var(--primary-teal);
+  color: white;
 }
 
-#pack-result {
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-#prize-text {
-  font-size: 24px;
+.token-display {
+  font-size: 18px;
   font-weight: bold;
+  margin-left: 20px;
+  background-color: #fef08a;
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 2px solid #facc15;
 }
 
-/* This styles the image to look like a Blooket character! */
-#blook-image {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 18px; /* Makes those iconic soft corners */
-  border: 4px solid #333; /* Gives it a clean cartoon border */
-  box-shadow: 0px 8px 16px rgba(0,0,0,0.15); /* Gives it a 3D pop effect */
+/* Page Configurations */
+.page {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* Multiple Pack Grid Layout */
+.pack-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.pack-card {
+  background: var(--card-bg);
+  border: 3px solid var(--primary-teal);
+  border-radius: 16px;
+  padding: 20px;
+  width: 200px;
+  box-shadow: 0 6px 12px rgba(13, 148, 136, 0.05);
+  transition: transform 0.2s;
+}
+
+.pack-card:hover {
+  transform: translateY(-5px);
+}
+
+.pack-card h3 {
+  margin-top: 0;
+  color: var(--dark-teal);
+}
+
+.pack-btn {
+  padding: 10px 20px;
+  background-color: var(--primary-teal);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+}
+
+.pack-btn:hover {
+  background-color: var(--dark-teal);
+}
+
+/* Result Modal Display */
+#pack-result {
+  margin-top: 30px;
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  border: 3px dashed var(--primary-teal);
+  display: inline-block;
+  min-width: 300px;
+}
+
+/* Collection Grid Layout */
+.blook-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.grid-blook {
+  background: white;
+  padding: 15px;
+  border-radius: 14px;
+  border: 3px solid var(--light-teal);
+  text-align: center;
+  font-weight: bold;
+  width: 120px;
+}
+
+.grid-blook.locked {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+  color: #94a3b8;
+}
+
+.stats-box {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  text-align: left;
+  display: inline-block;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  border-left: 6px solid var(--primary-teal);
 }
