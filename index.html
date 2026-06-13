@@ -1,47 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cube Packs & Collection</title>
-    <link rel="stylesheet" href="style.css">
+  <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div class="game-container">
-        <h1>Cubing Blook Game</h1>
-        <div class="stats">Tokens: <span id="token-count">100</span></div>
-        
-        <!-- Navigation Tabs -->
-        <div class="navigation">
-            <button id="tab-shop" class="nav-btn active">Open Packs</button>
-            <button id="tab-collection" class="nav-btn">My Blooks</button>
-        </div>
 
-        <!-- SHOP PAGE CONTENT -->
-        <div id="page-shop" class="page">
-            <div class="pack-card">
-                <h3>Cubing Pack</h3>
-                <p>Cost: 20 Tokens</p>
-                <button id="open-button">Open Pack</button>
-            </div>
-            <div class="result-display">
-                <h2>You Got:</h2>
-                <div id="blook-name">Click open to start!</div>
-                <div id="blook-rarity"></div>
-            </div>
-        </div>
+  <h1>Cubing Pack Opener</h1>
+  
+  <button id="open-button">Open Cubing Pack</button>
+  
+  <!-- This container holds both the text and the Blook image -->
+  <div id="pack-result">
+    <div id="prize-text">Click the button to open a pack!</div>
+    <img id="blook-image" src="" alt="Blook Prize" style="display: none;" />
+  </div>
 
-        <!-- COLLECTION PAGE CONTENT -->
-        <div id="page-collection" class="page hidden">
-            <h2>Your Blook Collection</h2>
-            <div id="collection-grid" class="grid">
-                <!-- Blooks will appear here dynamically via code -->
-            </div>
-        </div>
-
-        <!-- Account Reset Button -->
-        <button id="reset-account" class="danger-btn">Reset Account Data</button>
-    </div>
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
+    
